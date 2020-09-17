@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Logo from '../resource/opuscout_logo_white.svg';
 import { FaUserAlt, FaLock } from "react-icons/fa";
-import LoginPasswdInput from '../components/LoginPasswdInput';
 
 const ContentSection = styled.div`
     width: 100%;
@@ -52,6 +51,18 @@ const LoginSection = styled.div`
     }
 `;
 
+const Input = styled.input`
+    width: 200px;
+    height: 40px;
+    border-radius: 10px;
+    border: solid 1px #2B2CFF;
+    padding: 1.0rem;
+    box-sizing: border-box;
+    font-size: 15px;
+    margin-left: 10px;
+    outline: none;
+`;
+
 const LoginButton = styled.div`
     float: right;
     width: 200px;
@@ -75,10 +86,23 @@ const LoginButton = styled.div`
         // 클릭시 어두운 파란색
         background: #2353FF;
     }
-
 `;
 
 function Login() {
+    var id = '';
+    var password = '';
+    const onIdChange = (e) => {
+        id = e.target.value;
+    }
+
+    const onPasswdChange = (e) => {
+        password = e.target.value;
+    }
+    const onLoginClick = () => {
+        console.log(id);
+        console.log(password);
+    }
+
     return(
         <>
             <ContentSection>
@@ -91,13 +115,13 @@ function Login() {
                 <div className="login-container">
                     <div className="login-input-container">
                         <FaUserAlt className="user-icon"></FaUserAlt>
-                        <LoginPasswdInput type="id" hint="id"></LoginPasswdInput>
+                        <Input onChange={onIdChange} placeholder="id" type="id"></Input>
                     </div>
                     <div className="login-input-container">
                         <FaLock className="user-icon"></FaLock>
-                        <LoginPasswdInput type="password" hint="**********"></LoginPasswdInput>
+                        <Input onChange={onPasswdChange} placeholder="**********" type="password"></Input>
                     </div>
-                    <LoginButton>로그인</LoginButton>
+                    <LoginButton onClick={onLoginClick}>로그인</LoginButton>
                 </div>
             </LoginSection>
         </>
