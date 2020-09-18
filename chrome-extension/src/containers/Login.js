@@ -2,6 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import Logo from '../resource/opuscout_logo_white.svg';
 import { FaUserAlt, FaLock } from "react-icons/fa";
+import { useHistory } from 'react-router-dom';
+import {
+    goBack,
+    goTo,
+    popToTop,
+    Link,
+    Router,
+    getCurrent,
+    getComponentStack
+  } from 'react-chrome-extension-router';
+import Item from './Item';
 
 const ContentSection = styled.div`
     width: 100%;
@@ -94,13 +105,14 @@ function Login() {
     const onIdChange = (e) => {
         id = e.target.value;
     }
-
     const onPasswdChange = (e) => {
         password = e.target.value;
     }
+    const history = useHistory();
     const onLoginClick = () => {
         console.log(id);
         console.log(password);
+        goTo(Item);
     }
 
     return(
