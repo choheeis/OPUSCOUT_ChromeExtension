@@ -1,3 +1,4 @@
+/*global chrome*/
 import React from 'react';
 import styled from 'styled-components';
 import Header from '../components/Header';
@@ -70,6 +71,19 @@ function Item() {
         }
     ]
 
+    /* eslint-disable no-undef */
+    chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+        let url = tabs[0].url;
+        alert(url);
+        // use `url` here inside the callback because it's asynchronous!
+    });
+    // chrome.tabs.getCurrent(function (tab) {
+    //     console.log(tab.id);
+    //     alert(tab.id);
+    //   });
+    
+    /* eslint-enable no-undef */
+    
     return(
         <>
             <Header></Header>
