@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Header from '../components/Header';
 import List from '../components/List';
 import ListBarTitle from '../components/ListBarTitle';
+import PageCount from '../components/PageCount';
 import { getParameterByName } from '../util/utils';
 
 const ContainerStyle = styled.div`
@@ -24,6 +25,7 @@ const ContainerStyle = styled.div`
     .search-title {
         color: #2B2CFF;
         font-size: 16px;
+        font-weight: bold;
         margin: auto 0;
     }
 
@@ -71,6 +73,48 @@ function Item() {
             brand: '나이키',
             price: 10000,
             ranking: 1
+        },
+        {
+            index: 4,
+            name: '라',
+            brand: '나이키',
+            price: 10000,
+            ranking: 1
+        },
+        {
+            index: 4,
+            name: '라',
+            brand: '나이키',
+            price: 10000,
+            ranking: 1
+        },
+        {
+            index: 4,
+            name: '라',
+            brand: '나이키',
+            price: 10000,
+            ranking: 1
+        },
+        {
+            index: 4,
+            name: '라',
+            brand: '나이키',
+            price: 10000,
+            ranking: 1
+        },
+        {
+            index: 4,
+            name: '라',
+            brand: '나이키',
+            price: 10000,
+            ranking: 1
+        },
+        {
+            index: 4,
+            name: '라',
+            brand: '나이키',
+            price: 10000,
+            ranking: 1
         }
     ]
     
@@ -80,7 +124,11 @@ function Item() {
     chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
         let url = decodeURI(tabs[0].url);
         searchWord = getParameterByName("q", url);
-        setUrlState(searchWord);
+        if(searchWord === '') {
+            setUrlState('검색어가 존재하지 않습니다.')
+        }else {
+            setUrlState(searchWord);
+        }
     });
     /* eslint-enable no-undef */
     
@@ -98,6 +146,7 @@ function Item() {
                     <List key={index} listValue={item}></List>
                 )
                 }
+                <PageCount></PageCount>
             </ContainerStyle>
         </>
     )
