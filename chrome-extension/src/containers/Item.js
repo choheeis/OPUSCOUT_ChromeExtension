@@ -1,9 +1,10 @@
 /*global chrome*/
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Header from '../components/Header';
 import List from '../components/List';
 import ListBarTitle from '../components/ListBarTitle';
+import { getParameterByName } from '../util/utils';
 
 const ContainerStyle = styled.div`
     background: #ffffff;
@@ -34,6 +35,8 @@ const ContainerStyle = styled.div`
         padding: 0 10px;
         height: 35px;
         color: #000000;
+        font-size: 16px;
+        font-weight: bold;
         border: 1px solid #2B2CFF;
     }
 `;
@@ -70,18 +73,15 @@ function Item() {
             ranking: 1
         }
     ]
-
-    /* eslint-disable no-undef */
-    chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
-        let url = tabs[0].url;
-        alert(url);
-        // use `url` here inside the callback because it's asynchronous!
-    });
-    // chrome.tabs.getCurrent(function (tab) {
-    //     console.log(tab.id);
-    //     alert(tab.id);
-    //   });
     
+    /* eslint-disable no-undef */
+    let searchWord = '';
+    const [urlState, setUrlState] = useState('');
+    chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+        let url = decodeURI(tabs[0].url);
+        searchWord = getParameterByName("q", url);
+        setUrlState(searchWord);
+    });
     /* eslint-enable no-undef */
     
     return(
@@ -90,7 +90,7 @@ function Item() {
             <ContainerStyle>
                 <div className="search-container">
                     <div className="search-title">검색어</div>
-                    <div className="search-value">가정용 커피 머신기</div>
+                    <div className="search-value">{urlState}</div>
                 </div>
                 <ListBarTitle titleArray={listComponents}></ListBarTitle>
                 {
