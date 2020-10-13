@@ -13,6 +13,54 @@ import {
     getComponentStack
   } from 'react-chrome-extension-router';
 import Item from './Item';
+import { loginAPI } from '../api/api';
+import { useAccessDispatch, useAccessState } from '../provider/MainProvider';
+
+function Login() {
+    // state, dispatch scope
+    const accessDispatch = useAccessDispatch();
+
+    var id = '';
+    var password = '';
+    const onIdChange = (e) => {
+        id = e.target.value;
+    }
+    const onPasswdChange = (e) => {
+        password = e.target.value;
+    }
+    const history = useHistory();
+    const onLoginClick = () => {
+        console.log('로그인')
+        console.log(loginAPI(id, password, accessDispatch))
+        //goTo(Item);
+    }
+
+    return(
+        <>
+            <ContentSection>
+                <div className="chrome-extension-title-container">
+                    <img src={Logo} alt="로고이미지"></img>
+                    <div className="title">OPUSCOUT</div>
+                </div>
+            </ContentSection>
+            <LoginSection>
+                <div className="login-container">
+                    <div className="login-input-container">
+                        <FaUserAlt className="user-icon"></FaUserAlt>
+                        <Input onChange={onIdChange} placeholder="id" type="id"></Input>
+                    </div>
+                    <div className="login-input-container">
+                        <FaLock className="user-icon"></FaLock>
+                        <Input onChange={onPasswdChange} placeholder="**********" type="password"></Input>
+                    </div>
+                    <LoginButton onClick={onLoginClick}>로그인</LoginButton>
+                </div>
+            </LoginSection>
+        </>
+    )
+}
+
+export default Login;
 
 const ContentSection = styled.div`
     width: 100%;
@@ -98,46 +146,3 @@ const LoginButton = styled.div`
         background: #2353FF;
     }
 `;
-
-function Login() {
-    var id = '';
-    var password = '';
-    const onIdChange = (e) => {
-        id = e.target.value;
-    }
-    const onPasswdChange = (e) => {
-        password = e.target.value;
-    }
-    const history = useHistory();
-    const onLoginClick = () => {
-        console.log(id);
-        console.log(password);
-        goTo(Item);
-    }
-
-    return(
-        <>
-            <ContentSection>
-                <div className="chrome-extension-title-container">
-                    <img src={Logo} alt="로고이미지"></img>
-                    <div className="title">OPUSCOUT</div>
-                </div>
-            </ContentSection>
-            <LoginSection>
-                <div className="login-container">
-                    <div className="login-input-container">
-                        <FaUserAlt className="user-icon"></FaUserAlt>
-                        <Input onChange={onIdChange} placeholder="id" type="id"></Input>
-                    </div>
-                    <div className="login-input-container">
-                        <FaLock className="user-icon"></FaLock>
-                        <Input onChange={onPasswdChange} placeholder="**********" type="password"></Input>
-                    </div>
-                    <LoginButton onClick={onLoginClick}>로그인</LoginButton>
-                </div>
-            </LoginSection>
-        </>
-    )
-}
-
-export default Login;
