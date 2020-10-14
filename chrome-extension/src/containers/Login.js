@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Logo from '../resource/opuscout_logo_white.svg';
 import { FaUserAlt, FaLock } from "react-icons/fa";
@@ -18,21 +18,34 @@ import { useAccessDispatch, useAccessState } from '../provider/MainProvider';
 
 function Login() {
     // state, dispatch scope
+    const accessState = useAccessState();
     const accessDispatch = useAccessDispatch();
+    const [{id, password}, setLoginInfo] = useState({id: "", password: ""})
 
-    var id = '';
-    var password = '';
+    useEffect(() => {
+        accessDispatch({
+            type: 'ACCESS_RESET'
+        })
+        loginAPI(id, password, accessDispatch)
+    }, [id, password])
+    
+    var tmpId = '';
+    var tmpPassword = '';
     const onIdChange = (e) => {
-        id = e.target.value;
+        tmpId = e.target.value;
+
     }
     const onPasswdChange = (e) => {
-        password = e.target.value;
+        tmpPassword = e.target.value;
     }
-    const history = useHistory();
     const onLoginClick = () => {
-        console.log('로그인')
-        console.log(loginAPI(id, password, accessDispatch))
-        //goTo(Item);
+        setLoginInfo({id: tmpId, password: tmpPassword})
+    }
+
+    if(accessState.login.status === "success"){
+        goTo(Item)
+    }else{
+        console.log('login failed')
     }
 
     return(

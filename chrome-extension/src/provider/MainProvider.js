@@ -4,6 +4,7 @@ import { FaChrome } from 'react-icons/fa';
 const initUrl = '';
 const initAccess = {
     login : {
+        status : "fail",
         id : "",
         password : ""
     },
@@ -26,7 +27,10 @@ function AccessReducer(state, action) {
         case 'UPDATE_LOGIN_INFO' :
             state.login.id = action.id
             state.login.password = action.passwd
+            state.login.status = action.status
             return state
+        case 'ACCESS_RESET' :
+            return state = initAccess
         default :
             throw new Error('Unhandled action type')
     }

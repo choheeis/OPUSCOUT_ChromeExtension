@@ -44,6 +44,7 @@ const ContainerStyle = styled.div`
 `;
 
 function Item() {
+
     const listComponents = [ "순번", "아이템명", "브랜드명", "판매가격", "랭킹", "월판매량", "일판매량", "수익", "리뷰수", "별점", "셀러수", "경쟁강도"];
     const listValues = [
         {

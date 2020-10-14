@@ -5,7 +5,7 @@ export const loginAPI = async (id, passwd, dispatch) => {
         "id" : id,
         "password" : passwd
     }
-    console.log(body)
+    
     try {
         const response = await opusServer.post('/login', body)
         console.log('응답성공')
@@ -15,10 +15,9 @@ export const loginAPI = async (id, passwd, dispatch) => {
             type: 'UPDATE_LOGIN_INFO',
             value: response.data,
             id,
-            passwd
+            passwd,
+            status: "success"
         })
-
-        return response.data
     } catch (error) {
         console.log('api call error');
         if (error.response) {
