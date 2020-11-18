@@ -36,7 +36,6 @@ const HeaderStyle = styled.div`
     }
 
     .cancel {
-        background: black;
         margin: auto 0px;
         margin-left: 15px;
         color: #ffffff;
@@ -49,8 +48,8 @@ function Header() {
             <img src={Logo} alt="OPUSCOUT LOGO Image" className="logo"></img>
             <div className="app-name">OPUSCOUT</div>
             <div className="menu">아이템 발굴</div>
-            <div className="logout">로그아웃</div>
-            <FaTimes className="cancel"></FaTimes>
+            {/* <div className="logout">로그아웃</div> */}
+            {/* <FaTimes className="cancel"></FaTimes> */}
         </HeaderStyle>
     )
 }

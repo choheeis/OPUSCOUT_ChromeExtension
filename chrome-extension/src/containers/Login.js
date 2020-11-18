@@ -39,7 +39,23 @@ function Login() {
         tmpPassword = e.target.value;
     }
     const onLoginClick = () => {
+
         setLoginInfo({id: tmpId, password: tmpPassword})
+        if(tmpId != '') {
+            /* eslint-disable no-undef */
+            chrome.runtime.sendMessage({action: "FINISH"}, function() { 
+                alert("로그인 성공!"); 
+                goTo(Item)
+            })
+            /* eslint-enable no-undef */
+        }else{
+            /* eslint-disable no-undef */
+            chrome.runtime.sendMessage({action: "FINISH"}, function() { 
+                alert("로그인 정보를 입력하세요."); 
+            })
+            /* eslint-enable no-undef */
+        }
+        
     }
 
     if(accessState.login.status === "success"){
